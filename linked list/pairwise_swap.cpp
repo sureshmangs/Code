@@ -30,30 +30,19 @@ void disp(struct node* head){
     }
 }
 
-struct node* swapNodes(struct node* head, int x, int y){
-    if(x==y) return head;
-    struct node *preX=NULL, *curX=head, *preY=NULL, *curY=head;
-    while(curX!=NULL && curX->data!=x){
-        preX=curX;
-        curX=curX->next;
+void pairWiseSwap(struct node* head) {
+    if(head==NULL) return ;
+    struct node *p1=head, *p2=head->next;
+    while(p2!=NULL){
+        int tmp=p2->data;
+        p2->data=p1->data;
+        p1->data=tmp;
+
+        if(p2->next!=NULL && p2->next->next!=NULL){
+            p1=p2->next;
+            p2=p1->next;
+        } else break;
     }
-    while(curY!=NULL && curY->data!=y){
-        preY=curY;
-        curY=curY->next;
-    }
-
-    if(curX==NULL || curY==NULL) return head;
-
-    if(preX!=NULL) preX->next=curY;
-    else head=curY;
-
-    if(preY!=NULL) preY->next=curX;
-    else head=curX;
-
-    struct node* tmp=curY->next;
-    curY->next=curX->next;
-    curX->next=tmp;
-    return head;
 }
 
 int main(){
@@ -65,10 +54,8 @@ int main(){
         cin>>data;
         head=createList(head, data);
     }
-    int x, y;
-    cin>>x>>y;
     disp(head);
     cout<<endl;
-    head=swapNodes(head,x,y);
+    pairWiseSwap(head);
     disp(head);
 }
