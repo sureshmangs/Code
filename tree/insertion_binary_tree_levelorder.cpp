@@ -21,9 +21,9 @@ void insertIt(struct node* root,int value){
     while(!q.empty()){
         struct node* tmp=q.front();
         if(tmp->left) q.push(tmp->left);
-        if(!tmp->left) { tmp->left=newNode(value); break; }
+        else { tmp->left=newNode(value); break; }
         if(tmp->right) q.push(tmp->right);
-        if(!tmp->right) { tmp->right=newNode(value);  break;  }
+        else { tmp->right=newNode(value);  break;  }
         q.pop();
     }
 }
