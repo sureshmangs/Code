@@ -41,19 +41,31 @@ Test Case 2: With W = 3, there is no item you can choose from the given list as 
 
 
 
+
+
+
 #include<bits/stdc++.h>
 using namespace std;
-
-int dp[100][1000];   // Set according to the constraints provided n, w
 
 int maxi(int a, int b) { return (a > b)? a : b; }
 
 int knapsack(int wt[], int val[], int w, int n){
-    if(n==0 || w==0) return 0;
-    if(dp[n][w]!=-1) return dp[n][w];
-    if(wt[n-1]<=w)
-        return dp[n][w]=maxi(val[n-1]+knapsack(wt,val,w-wt[n-1],n-1), knapsack(wt,val,w,n-1));
-    else return dp[n][w]=knapsack(wt,val,w,n-1);
+    int dp[n+1][w+1];
+
+    for(int i=0;i<n+1;i++)
+        dp[i][0]=0;
+    for(int j=0;j<w+1;j++)
+        dp[0][j]=0;
+
+    for(int i=1;i<n+1;i++){
+        for(int j=1;j<w+1;j++){
+            if(wt[i-1]<=j)
+                dp[i][j]=maxi(val[i-1]+dp[i-1][j-wt[i-1]], dp[i-1][j]);
+            else dp[i][j]=dp[i-1][j];
+        }
+    }
+
+    return dp[n][w];
 }
 
 int main(){
@@ -63,14 +75,13 @@ int main(){
     int t;
     cin>>t;
     while(t--){
-        memset(dp, -1, sizeof(dp));
         int n,w;
         cin>>n>>w;
         int wt[n],val[n];
         for(int i=0;i<n;i++) cin>>val[i];
         for(int i=0;i<n;i++) cin>>wt[i];
-
         cout<<knapsack(wt,val,w,n)<<endl;
     }
 return 0;
 }
+

@@ -44,16 +44,14 @@ Test Case 2: With W = 3, there is no item you can choose from the given list as 
 #include<bits/stdc++.h>
 using namespace std;
 
-int dp[100][1000];   // Set according to the constraints provided n, w
 
 int maxi(int a, int b) { return (a > b)? a : b; }
 
 int knapsack(int wt[], int val[], int w, int n){
     if(n==0 || w==0) return 0;
-    if(dp[n][w]!=-1) return dp[n][w];
     if(wt[n-1]<=w)
-        return dp[n][w]=maxi(val[n-1]+knapsack(wt,val,w-wt[n-1],n-1), knapsack(wt,val,w,n-1));
-    else return dp[n][w]=knapsack(wt,val,w,n-1);
+        return maxi(val[n-1]+knapsack(wt,val,w-wt[n-1],n-1), knapsack(wt,val,w,n-1));
+    else return knapsack(wt,val,w,n-1);
 }
 
 int main(){
@@ -63,7 +61,6 @@ int main(){
     int t;
     cin>>t;
     while(t--){
-        memset(dp, -1, sizeof(dp));
         int n,w;
         cin>>n>>w;
         int wt[n],val[n];
