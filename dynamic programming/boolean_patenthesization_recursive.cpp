@@ -54,8 +54,8 @@ int booleanParenthesis(string s, int i, int j, bool isTrue){
     if(i>j) return 0;
     if(i==j){
         if(isTrue==true)
-             return s[i]=='T'?1:0;
-        else return s[i]=='F'?1:0;
+             return s[i]=='T';
+        else return s[i]=='F';
     }
     int ans=0;
     for(int k=i+1;k<j;k+=2){
@@ -65,7 +65,7 @@ int booleanParenthesis(string s, int i, int j, bool isTrue){
         int rf=booleanParenthesis(s, k+1, j, false);
 
         if(s[k]=='&'){
-            if(isTrue=true)
+            if(isTrue==true)
                 ans+=lt*rt;
             else ans+=lt*rf + lf*rt + lf*rf;
         } else if(s[k]=='|'){
