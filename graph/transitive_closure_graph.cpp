@@ -1,18 +1,18 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+bool mat[100][100];
+
 void adjListGraph(vector<int> adj[], int s, int d){
-    // undirected graph
+    // directed graph
     adj[s].push_back(d);
-    adj[d].push_back(s);
 }
 
-void dfs(vector<int> adj[], int s, bool vis[]){
-    vis[s]=true;
-    cout<<s<<" ";
+void dfsUtil(vector<int> adj[], int s, int d){
+    mat[s][d]=true;
     for(auto x : adj[d]){
-        if(!vis[x]){
-            dfs(adj, x, vis);
+        if(!mat[s][x]){
+            dfsUtil(adj, s, x);
         }
     }
 }
@@ -23,12 +23,22 @@ int main(){
     int v,e;
     cin>>v>>e;
     vector<int> adj[v];
+
     while(e--){
         int s,d;
         cin>>s>>d;
         adjListGraph(adj,s,d);
     }
-    int s=0;   // source is node 0
-    bool vis[v]={false};
-    dfs(adj, s, vis);
+
+    memset(mat, false, sizeof(mat));
+
+    for(int i=0;i<v;i++){
+        dfsUtil(adj, i, i);
+    }
+
+    for(int i=0;i<v;i++){
+        for(int j=0;j<v;j++)
+            cout<<mat[i][j]<<" ";
+        cout<<endl;
+    }
 }
