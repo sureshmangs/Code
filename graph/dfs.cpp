@@ -10,7 +10,7 @@ void adjListGraph(vector<int> adj[], int s, int d){
 void dfs(vector<int> adj[], int s, bool vis[]){
     vis[s]=true;
     cout<<s<<" ";
-    for(auto x : adj[d]){
+    for(auto x : adj[s]){
         if(!vis[x]){
             dfs(adj, x, vis);
         }
