@@ -113,7 +113,7 @@ vector<int> topoSort(int V, vector<int> adj[]) {
     vector<bool> vis(V, false);
     for(int i=0;i<V;i++){
         if(!vis[i])
-         dfs(adj, 0, vis);
+         dfs(adj, i, vis);
     }
     vector<int>res;
     while(!s.empty()){
