@@ -28,6 +28,8 @@
     
     - [2020 July Challenge](competitive%20programming/leetcode/2020-July-Challenge)
     
+    - [2020 August Challenge](competitive%20programming/leetcode/2020-August-Challenge)
+    
 * [Dynamic Programming](dynamic%20programming)
 
 * [Graph](graph)
