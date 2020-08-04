@@ -62,3 +62,39 @@ public:
 };
 
 
+
+
+
+
+
+
+
+// Slow and Fast pointer technique (will also work for negatives)
+// D = distance from start till starting of loop
+//  K = distance start of loop till both pointers meet
+//   C = length of loop
+//   i, j   distance covered in loops by fast and slow pointer
+// distance covered by slow, N = D + K + C * i
+// distance covered by fast, 2N = D + K + C * j
+// subtracting we get D = C(j - 2*i ) - K
+// Place slow to start again, it covers D distance to reach start of loop
+//  Lets say fast makes x loops and still remains on the colliding position and now
+// if he has to reach the start of the loop he hast to go K steps backward
+
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        if(nums.size()<=0) return -1;
+        int slow=nums[0], fast=nums[0];
+        do{
+            slow=nums[slow];
+            fast=nums[nums[fast]];
+        }while(slow!=fast);
+        fast=nums[0];
+        while(slow!=fast){
+            slow=nums[slow];
+            fast=nums[fast];
+        }
+        return slow;
+    }
+};
