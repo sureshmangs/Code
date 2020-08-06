@@ -112,3 +112,9 @@ int main(){
     }
 return 0;
 }
+
+
+
+/*
+Brute force approach would be to create two temporary arrays for row and col and marking them on the basis of 0s and 1s
+*/

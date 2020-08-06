@@ -64,3 +64,26 @@ int main(){
     }
     return 0;
 }
+
+
+
+
+/* Alter
+Approach 1 : O(N^3)
+Generate all sub arrays and calculate the max sum
+for(i=0; i<n;i++){
+    for(int j=1;j<n;j++){
+    int sum=0;
+        for(int k=i;k<j;k++){
+            sum+=a[k];
+        if(sum>maxSum) maxSum=sum;
+    }
+}
+
+Approach 2 : O(N^2)
+In the above approach we can remove the 3rd loop,
+and write sum+=a[j];
+
+
+*/
+

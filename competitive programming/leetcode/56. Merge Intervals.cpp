@@ -16,7 +16,8 @@ Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 
 
 
-
+// Approach
+// Sort the intervals according to the starting time
 
 class Solution {
 public:
@@ -41,7 +42,7 @@ public:
                 tmp.second=intervals[i][1];
             }
         }
-        res.push_back({tmp.first, tmp.second});   // adding last interva;
+        res.push_back({tmp.first, tmp.second});   // adding last interval;
         return res;
     }
 };
