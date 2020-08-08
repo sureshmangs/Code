@@ -1,3 +1,16 @@
+/*
+Input : x = 2, n = 3
+Output : 8
+
+Input : x = 7, n = 2
+Output : 49
+*/
+
+
+
+
+
+
 #include<bits/stdc++.h>
 using namespace std;
 

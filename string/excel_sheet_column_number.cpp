@@ -66,3 +66,20 @@ int main(){
 
 return 0;
 }
+
+
+
+
+
+
+/* Reverse of above question
+int titleToNumber(string s) {
+        int res=0, k=0;
+        int n=s.length();
+        for(int i=n-1;i>=0;i--){
+            int ch=(s[i]-'A')+1;
+            res+=ch*pow(26,k++);
+        }
+        return res;
+    }
+    *.

@@ -20,3 +20,9 @@ int main(){
     }
 return 0;
 }
+
+
+
+
+
+// TC : O(Log min(a, b))

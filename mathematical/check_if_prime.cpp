@@ -50,3 +50,18 @@ int main(){
 
 return 0;
 }
+
+
+
+
+/*
+Prime number is in form of 6p+1, 6p-1
+example
+6p divisible by 6
+6p+1
+6p+2 divisible by 2
+6p+3 divisible by 3
+6p+4 divisible by 4
+6p+5 = 6p+6-1 =  6(p+1)-1 = 6X-1
+6p+6 divisible by 6
+*/

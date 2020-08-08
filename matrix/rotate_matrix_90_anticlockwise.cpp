@@ -90,3 +90,23 @@ int main(){
 
 return 0;
 }
+
+
+
+
+/*
+Matrix rotation by 90 degrees can be done in
+
+clockwise
+anticlockwise
+
+To rotate a matrix clockwise by 90 degrees:
+
+Find the transpose of the matrix.
+Reverse every rows of the matrix.
+
+To rotate a matrix anticlockwise by 90 degrees,
+
+Find the transpose of the matrix.
+Reverse every columns of the matrix.
+*/
