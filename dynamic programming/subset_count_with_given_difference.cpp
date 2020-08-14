@@ -1,3 +1,18 @@
+/*
+Given an array, we have to find the number of subsets with given difference.
+example divide the given array into 2 subsets such that S1 - S2 = diff
+where S1 = Sum of subset 1 and S2 = Sum of subset 2
+
+input:
+arr: 1 1 2 3
+diff: 1
+
+output:
+3
+*/
+
+
+
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -45,3 +60,9 @@ int main(){
     }
 return 0;
 }
+
+
+
+// We have to find count of all S1 - S2 = diff
+// We know S1 + S2 = S
+// So S1 = (diff + S) / 2
