@@ -49,7 +49,6 @@ int getFloor(long long a[], int n, int x){
         mid=l+(h-l)/2;
         if(a[mid]==x){
             return mid;
-            h=mid-1;
         }
        else  if(a[mid]<x){
            res=mid;  // possible result
