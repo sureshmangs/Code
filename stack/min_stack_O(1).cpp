@@ -112,3 +112,43 @@ int getTop(){
     if(s.top()>= minx) return s.top();
     else return minx;
 }
+
+
+/*
+How does this approach work?
+When element to be inserted is less than minEle, we insert “2x – minEle”.
+The important thing to notes is, 2x – minEle will always be less than x (proved below),
+i.e., new minEle and while popping out this element we will see that something unusual has happened as the popped element is less than the minEle.
+So we will be updating minEle.
+
+How 2*x - minEle is less than x in push()?
+x < minEle which means x - minEle < 0
+
+// Adding x on both sides
+x - minEle + x < 0 + x
+
+2*x - minEle < x
+
+We can conclude 2*x - minEle < new minEle
+While popping out, if we find the element(y) less than the current minEle, we find the new minEle = 2*minEle – y.
+
+How previous minimum element, prevMinEle is, 2*minEle - y
+in pop() is y the popped element?
+
+ // We pushed y as 2x - prevMinEle. Here
+ // prevMinEle is minEle before y was inserted
+ y = 2*x - prevMinEle
+
+ // Value of minEle was made equal to x
+ minEle = x .
+
+ new minEle = 2 * minEle - y
+            = 2*x - (2*x - prevMinEle)
+            = prevMinEle // This is what we wanted
+
+Similar approach can be used to find the maximum element as well.
+Implement a stack that supports getMax() in O(1) time and constant extra space.
+
+Source: GeeksForGeeks
+*/
+
