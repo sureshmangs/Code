@@ -27,3 +27,34 @@ public:
     }
 };
 
+
+
+
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        if(n<=0) return 0;
+        return n && !(n & (n-1));
+    }
+};
+
+
+/*
+Properties for numbers which are powers of 2, is that they have one and only one bit set in their binary representation.
+
+If the number is neither zero nor a power of two, it will have 1 in more than one place.
+
+So if x is a power of 2 then x & (x-1) will be 0.
+
+
+x = 4 = (100)2
+x - 1 = 3 = (011)2
+x & (x-1) = 4 & 3 = (100)2 & (011)2 = (000)2
+
+x = 6 = (110)2
+x - 1 = 5 = (101)2
+x & (x-1) = 6 & 5 = (110)2 & (101)2 = (100)2
+
+For a x, the binary representation of (x-1) can be obtained by simply flipping all the bits to the right of rightmost 1 in x and also including the rightmost 1.
+*/
