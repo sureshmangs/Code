@@ -40,3 +40,37 @@ public:
         return waterTrap;
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int trapped=0;
+        int n=height.size();
+        int l=0, r=n-1;
+        int maxLeft=0, maxRight=0;
+
+        while(l<r){
+            if(height[l]>height[r]){
+                if(height[r]>maxRight) maxRight=height[r];
+                else trapped+=maxRight-height[r];
+                r--;
+            } else {
+                if(height[l]>maxLeft) maxLeft=height[l];
+                else trapped+=maxLeft-height[l];
+                l++;
+            }
+        }
+      return trapped;
+     }
+};

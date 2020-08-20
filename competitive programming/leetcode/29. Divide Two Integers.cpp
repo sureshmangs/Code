@@ -39,3 +39,42 @@ public:
         return dividend/divisor;
     }
 };
+
+
+
+
+
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        long long n=dividend, m=divisor;
+        if(n <= INT_MIN && m == -1) return INT_MAX;
+
+        int sign = (n < 0) ^ (m < 0) ? -1: 1;
+
+        n=abs(n);
+        m=abs(m);
+
+        long long q=0, temp=0;
+
+        for(int i=31; i>=0; i--){
+            if(temp + (m << i) <= n){
+                temp += m << i;
+                q += 1 << i;     // q |= 1 << i;
+            }
+        }
+        return sign * q;
+    }
+};
+
+
+/*
+dividend = quotient * divisor + remainder
+dividend -  quotient * divisor  >= 0
+So here we find highest value of quotient
+We start with highest value of i  ie:  (divisor * 2^31) .... (divisor * 2^30)..................(divisor * 2^0)
+here (m << i) is equivalent to m * 2^i
+we keep adding (1 << i) or in other words 2^i to quotient
+*/
+
+
