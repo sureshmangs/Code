@@ -42,3 +42,34 @@ public:
         return max_profit;
     }
 };
+
+
+
+
+// Recursive implementation
+class Solution {
+public:
+    unordered_map<string, int> dp;
+    int maxPro(vector<int> &prices, int i, int buyOrSell, int k){
+        if(k==0 || i>=prices.size())
+            return 0;
+        string key=to_string(i)+to_string(buyOrSell)+to_string(k);
+        if(dp.find(key)!=dp.end()) return dp[key];
+        int res=0;
+        if(buyOrSell==0){
+            int buy=maxPro(prices, i+1, 1, k)-prices[i];
+            int noBuy=maxPro(prices, i+1, 0, k);
+            res=max(buy, noBuy);
+        } else {
+            int sell=maxPro(prices, i+1, 0, k-1)+prices[i];
+            int noSell=maxPro(prices, i+1, 1, k);
+            res=max(sell, noSell);
+        }
+        dp[key]=res;
+        return res;
+    }
+
+    int maxProfit(vector<int>& prices) {
+        return maxPro(prices, 0, 0, 1);  // <prices, start, buyOrSell, number of transactions>    buy--->0   sell--->1
+    }
+};
