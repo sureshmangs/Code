@@ -63,3 +63,15 @@ public:
        return res;
     }
 };
+
+
+
+
+/*
+Approach1:
+The brute force approach is simple.
+Loop through each element xx and find if there is another value that equals to target - xtarget−x.
+
+Approach2:
+Sort the array, and use the two pointer technique.
+*/

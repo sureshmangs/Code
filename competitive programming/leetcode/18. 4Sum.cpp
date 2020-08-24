@@ -59,3 +59,17 @@ public:
         return res;
     }
 };
+
+
+
+
+
+/*
+while(low<high && nums[low]==nums[low+1]) low++;
+while(low<high && nums[high]==nums[high-1]) high--;
+
+here, we are doing low++ in the while loop because, for a given sum, we might get result
+as A[i], A[low]=x, A[high]=y   ie: (A[i), x, y)
+Now if we din't check A[low]==A[low+1] we might get duplicate results,
+as if A[low+1]=x, then our solution again will be (A[i], x, y)
+*/
