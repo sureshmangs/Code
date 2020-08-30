@@ -57,3 +57,11 @@ public:
         return v;
     }
 };
+
+
+// Another approach is to check if nums[abs[nums]-1] is negative or not, if it's negative then number is repeating
+/* for missing
+        for(int i = 0; i<n; i++)
+            if(nums]>0)
+                missing = i+1;
+*/
