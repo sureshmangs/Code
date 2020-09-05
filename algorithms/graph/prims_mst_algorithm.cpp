@@ -1,23 +1,18 @@
 /*
 Steps
-1) Initialize keys of all vertices as infinite and
-   parent of every vertex as -1.
+1) Initialize keys of all vertices as infinite and parent of every vertex as -1.
+   For ie; for u---> v,   Parent stores the u and v is the index of Parent array.
 
-2) Create an empty priority_queue pq.  Every item
-   of pq is a pair (weight, vertex). Weight (or
-   key) is used used as first item  of pair
-   as first item is by default used to compare
-   two pairs.
+2) Create an empty priority_queue pq.
+   Every item of pq is a pair (weight, vertex).
+   Weight aka key is used as first item  of pair as first item is by default used to compare two pairs.
 
 3) Initialize all vertices as not part of MST yet.
    We use boolean array inMST[] for this purpose.
-   This array is required to make sure that an already
-   considered vertex is not included in pq again. This
-   is where Ptim's implementation differs from Dijkstra.
-   In Dijkstr's algorithm, we didn't need this array as
-   distances always increase. We require this array here
-   because key value of a processed vertex may decrease
-   if not checked.
+   This array is required to make sure that an already considered vertex is not included in pq again.
+   This is where Prim's implementation differs from Dijkstra.
+   In Dijkstra's algorithm, we don't need this array as distances always increase.
+   We require this array here because key value of a processed vertex may decrease if not checked.
 
 4) Insert source vertex into pq and make its key as 0.
 
@@ -27,14 +22,13 @@ Steps
 
     b) Include u in MST using inMST[u] = true.
 
-    c) Loop through all adjacent of u and do
-       following for every vertex v.
+    c) Loop through all adjacent of u and do following for every vertex v.
 
            // If weight of edge (u,v) is smaller than
            // key of v and v is not already in MST
-           If inMST[v] = false && key[v] > weight(u, v)
+           If inMST[v] == false && key[v] > weight(u, v)
 
-               (i) Update key of v, i.e., do
+               (i) Update key of v, ie, do
                      key[v] = weight(u, v)
                (ii) Insert v into the pq
                (iv) parent[v] = u
@@ -59,9 +53,8 @@ void adjListGraph(vector<pair<int, int> > adj[], int s, int d, int w){
     adj[d].push_back({s, w});
 }
 
-void prims(vector<pair<int, int> > adj[], int V){
+void prims(vector<pair<int, int> > adj[], int V, int src){
     priority_queue<iPair, vector<iPair>, greater<iPair> > pq;     // min heap
-    int src=0;
     vector<int> key(V, INF);         // weights
     vector<int> parent(V, -1);       //  u ----> v  edge then u is parent of v
     vector<bool> inMST(V,false);     //  keep track of vertices included in MST
@@ -70,7 +63,7 @@ void prims(vector<pair<int, int> > adj[], int V){
     key[src]=0;             // and initialize its key as 0
 
     while(!pq.empty()){
-        int u=pq.top().second;      // pait< key, vertex>
+        int u=pq.top().second;      // pair< key, vertex>
         pq.pop();
         inMST[u]=true;
         for(auto x: adj[u]){
@@ -102,5 +95,7 @@ int main(){
         cin>>s>>d>>w;
         adjListGraph(adj,s,d,w);
     }
-    prims(adj, v);
+    prims(adj, v, 0);  // <adj, v, source>
+
+    return 0;
 }
