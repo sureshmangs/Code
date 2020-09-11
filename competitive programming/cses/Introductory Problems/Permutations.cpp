@@ -8,43 +8,46 @@ int main(){
     int n;
     cin>>n;
 
-    int a[n];
+    vector<int> v;
 
-    int i=0;
-    int tmp=n;
+    int curr=n;
 
-    if(n%2==0){
-        while(n>0){
-            a[i]=n;
-            cout<<n<<" ";
-            n-=2;
-            i++;
-
+    if(curr%2==0){
+        while(curr>0){
+            v.push_back(curr);
+            curr-=2;
         }
-        n=tmp-1;  // for odd
-        while(n>0){
-            a[i]=n;
-            n-=2;
-            i++;
-            cout<<a[i]<<" ";
+        curr=n-1; // for odd
+        while(curr>0){
+            v.push_back(curr);
+            curr-=2;
         }
     } else {
-        n=tmp-1;   // for even
-        while(n>0){
-            a[i]=n;
-            n-=2;
-            i++;
+        curr=n-1;  // for even
+        while(curr>0){
+            v.push_back(curr);
+            curr-=2;
         }
-
-        n=tmp;
-        while(n>0){
-            a[i]=n;
-            n-=2;
-            i++;
+        curr=n;
+        while(curr>0){
+            v.push_back(curr);
+            curr-=2;
         }
     }
 
+    bool flag=true;
 
+    for(int i=0;i<n-1;i++){
+        if(abs(v[i]-v[i+1])==1){
+            flag=false;
+            break;
+        }
+    }
+
+    if(flag){
+        for(auto &x: v)
+            cout<<x<<" ";
+    } else cout<<"NO SOLUTION";
 
     return 0;
 }
