@@ -1,4 +1,4 @@
-NGiven a string s consists of upper/lower-case alphabets and empty space characters ' ', return the length of last word (last word means the last appearing word if we loop from left to right) in the string.
+Given a string s consists of upper/lower-case alphabets and empty space characters ' ', return the length of last word (last word means the last appearing word if we loop from left to right) in the string.
 
 If the last word does not exist, return 0.
 
@@ -64,29 +64,6 @@ public:
         while(tail>=0 && s[tail]!=' '){
             len++;
             tail--;
-        }
-        return len;
-    }
-};
-
-
-
-
-
-
-
-
-
-
-class Solution {
-public:
-    int lengthOfLastWord(string s) {
-        int n=s.length();
-        int len=0;
-        for(int i=n-1;i>=0;i--){
-            if(s[i]!=' ')
-                len++;
-            else if(len>0) break;
         }
         return len;
     }
