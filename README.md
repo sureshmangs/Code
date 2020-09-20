@@ -22,6 +22,8 @@
   
   - [Codeforces](competitive%20programming/codeforces)
   
+  - [CSES Problems](competitive%20programming/cses)
+  
   - [Leetcode](competitive%20programming/leetcode)
   
     - [2020 June Challenge](competitive%20programming/leetcode/2020-June-Challenge)
@@ -29,6 +31,8 @@
     - [2020 July Challenge](competitive%20programming/leetcode/2020-July-Challenge)
     
     - [2020 August Challenge](competitive%20programming/leetcode/2020-August-Challenge)
+    
+    - [2020 September Challenge](competitive%20programming/leetcode/2020-September-Challenge)
     
 * [Dynamic Programming](dynamic%20programming)
 
