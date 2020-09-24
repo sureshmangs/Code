@@ -67,3 +67,17 @@ public:
         return char(res);
     }
 };
+
+
+
+// Alter Bit Manipulation Implementation
+
+class Solution {
+public:
+    char findTheDifference(string s, string t) {
+        int tmp=0;
+        for(auto &x: s) tmp^=x;
+        for(auto &x: t) tmp^=x;
+        return char(tmp);
+    }
+};
