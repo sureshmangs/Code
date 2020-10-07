@@ -26,41 +26,13 @@ Explanation: 10 is "1010" in binary, with complement "0101" in binary, which is 
 Note:
 
 0 <= N < 10^9
+This question is the same as 476: https://leetcode.com/problems/number-complement/
+   Hide Hint #1
+A binary number plus its complement will equal 111....111 in binary. Also, N = 0 is a corner case.
 
 
 
 
-
-
-
-
-
-
-
-
-class Solution {
-public:
-    int bitwiseComplement(int N) {
-        if(N==0) return 1;
-        int bits = floor(log2(N))+1;
-        long long tmp = (long long)(1 << bits) - 1;
-        return N ^ tmp;
-    }
-};
-
-
-
-
-// num + comlement = all onesa
-
-class Solution {
-public:
-    int bitwiseComplement(int n) {
-        if(n==0) return 1;
-        int digits=log2(n)+1;
-        return pow(2, digits)-1-n;
-    }
-};
 
 
 
@@ -89,5 +61,19 @@ public:
         }
 
         return res;
+    }
+};
+
+
+
+
+// num + comlement = all onesa
+
+class Solution {
+public:
+    int bitwiseComplement(int n) {
+        if(n==0) return 1;
+        int digits=log2(n)+1;
+        return pow(2, digits)-1-n;
     }
 };
