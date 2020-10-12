@@ -86,3 +86,45 @@ public:
         return false;  // control wont reach here
     }
 };
+
+
+
+
+
+
+
+class Solution {
+public:
+    bool buddyStrings(string A, string B) {
+        if(A.length()!=B.length()) return false;
+        int n=A.length();
+        long long diff=0;
+        for(int i=0;i<n;i++)
+            if(A[i]!=B[i]) diff++;
+
+        if(diff>2) return false;
+
+        vector<long long> fa(26, 0);
+        vector<long long> fb(26, 0);
+
+        for(int i=0;i<n;i++){
+            fa[A[i]-'a']++;
+            fb[B[i]-'a']++;
+        }
+
+        for(int i=0;i<26;i++){
+            if(fa[i]!=fb[i]) return false;
+        }
+
+
+        if(diff==0){
+            for(int i=0;i<26;i++){
+                if(fa[i]>=2) return true;
+            }
+            return false;
+        }
+
+        return true;
+
+    }
+};
