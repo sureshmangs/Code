@@ -57,3 +57,33 @@ Step 3. Recursive + memo (top-down).
 
 
 //Sourece:   https://leetcode.com/problems/house-robber/discuss/156523/From-good-to-great.-How-to-approach-most-of-DP-problems.
+
+*/
+
+
+
+
+
+
+
+
+// Optimized
+
+class Solution {
+public:
+
+    int robUtil(vector<int> &nums, int l, int r){
+        int prev=0, curr=0;
+        for(int i=l;i<=r;i++){
+            int tmp=max(prev+nums[i], curr);
+            prev=curr;
+            curr=tmp;
+        }
+        return curr;
+    }
+
+    int rob(vector<int>& nums) {
+        int n=nums.size();
+        return robUtil(nums, 0, n-1);
+    }
+};
