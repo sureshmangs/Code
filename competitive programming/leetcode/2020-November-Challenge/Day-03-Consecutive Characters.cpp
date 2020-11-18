@@ -32,30 +32,13 @@ Constraints:
 
 1 <= s.length <= 500
 s contains only lowercase English letters.
+   Hide Hint #1
+Keep an array power where power[i] is the maximum power of the i-th character.
+   Hide Hint #2
+The answer is max(power[i]).
 
 
 
-
-
-
-
-
-
-
-class Solution {
-public:
-    int maxPower(string s) {
-        int n=s.length();
-        int maxi=1, cnt=1;
-        for(int i=0;i<n-1;i++){
-            if(s[i]==s[i+1]){
-                cnt++;
-            } else cnt=1;
-            if(cnt>maxi) maxi=cnt;
-        }
-        return maxi;
-    }
-};
 
 
 
