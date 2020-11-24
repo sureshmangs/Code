@@ -51,3 +51,56 @@ public:
         return res;
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+public:
+
+
+    void dfs(vector<vector<int> > &graph, int src, int dst, vector<int> &path, vector<vector<int> > &res){
+
+        path.push_back(src);
+
+        if(src==dst){
+            res.push_back(path);
+            return;
+        }
+
+        for(auto &x: graph[src]){
+            dfs(graph, x, dst, path, res);
+            path.erase(path.end()-1);
+        }
+    }
+
+
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+        vector<vector<int> > res;
+
+        int src=0, dst=graph.size()-1;
+
+        vector<int> path;
+
+        dfs(graph, src, dst, path, res);
+
+        return res;
+    }
+};
