@@ -51,6 +51,48 @@ int main(){
     
     vector <vector <char> > v(n, vector <char> (m, ' '));
     
+    vector <int> x, y;
+    
+    for (int i = 0; i < n; i++) {
+    	for (int j  = 0; j < m; j++) {
+    		char ch;
+    		cin >> ch;
+    		if (ch == '*') {
+    			x.push_back(i + 1);
+    			y.push_back(j + 1);
+			}
+		}
+	}
+	
+	sort(x.begin(), x.end());
+	sort(y.begin(), y.end());
+	
+	if (x[0] == x[1]) cout << x[2] << " ";
+	else cout << x[0] << " ";
+	
+	if (y[0] == y[1]) cout << y[2] << " ";
+	else cout << y[0] << " ";
+
+    return 0;
+}
+
+
+
+
+/*
+#include<bits/stdc++.h>
+using namespace std;
+
+ 
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    int n, m;
+    cin >> n >> m;
+    
+    vector <vector <char> > v(n, vector <char> (m, ' '));
+    
     for (int i = 0; i < n; i++) {
     	for (int j  = 0; j < m; j++) {
     		cin >> v[i][j];
@@ -83,3 +125,4 @@ int main(){
 
     return 0;
 }
+*/
