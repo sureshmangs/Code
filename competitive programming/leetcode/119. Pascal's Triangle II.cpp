@@ -52,3 +52,78 @@ public:
         return res;
     }
 };
+
+
+
+
+
+
+// using optimized ncr
+
+class Solution {
+public:
+    
+    int NCR(int n, int r){
+        if(n==0 || r==0) return 1;
+        if(n-r<r) r=n-r;
+        long long p=1;
+        for(int i=1;i<=r;i++){
+            p*=n;
+            p/=i;
+            n--;
+        }
+        return p;
+    }
+    
+    vector<int> getRow(int rowIndex) {
+        vector<int> res;
+        for(int i=0;i<=rowIndex;i++){
+            res.push_back(NCR(rowIndex, i));
+        }
+        return res;
+    }
+};
+
+
+
+
+// using ncr (better)
+// NCr = (NCr - 1 * (N - r + 1)) / r where 1 = r = N
+
+class Solution {
+public:
+    vector<int> getRow(int n) {
+        vector <int> res(n + 1);
+        
+        res[0] = 1; // nC0 = 1
+        
+        for (int i = 1; i <= n; i++) {
+            res[i] = ((long long)res[i - 1] * (n - i + 1)) / i;
+        }
+        
+        return res;
+    }
+};
+
+
+
+
+
+// Using O(n) space
+
+class Solution {
+public:
+    vector<int> getRow(int n) {
+        vector <int> res(n + 1, 0);
+        
+        res[0] = 1;
+        
+        for (int i = 1; i <= n; i++) {
+            for (int j = i; j >= 1; j--) {
+                res[j] += res[j - 1];
+            }
+        }
+        
+        return res;
+    }
+};
