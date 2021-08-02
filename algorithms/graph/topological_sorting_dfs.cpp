@@ -2,13 +2,19 @@
 Given a Directed Graph. Find any Topological Sorting of that Graph.
 
 Input:
-The first line of input takes the number of test cases then T test cases follow . Each test case contains two lines. The first  line of each test case  contains two integers E and V representing no of edges and the number of vertices. Then in the next line are E  pairs of integers u, v representing an edge from u to v in the graph.
+The first line of input takes the number of test cases then T test cases follow . 
+Each test case contains two lines. The first  line of each test case  contains two integers E and V 
+representing no of edges and the number of vertices. Then in the next line are E  pairs of integers u, v 
+representing an edge from u to v in the graph.
 
 Output:
 For each test case output will be 1 if the topological sort is done correctly else it will be 0.
 
 Your Task:
-You don't need to read input or print anything. Your task is to complete the function topoSort() which takes the adjacency list of the Graph and the number of vertices (N) as inputs are returns an array consisting of a the vertices in Topological order. As there are multiple Topological orders possible, you may return any of them.
+You don't need to read input or print anything. Your task is to complete the function topoSort() 
+which takes the adjacency list of the Graph and the number of vertices (N) as inputs are returns 
+an array consisting of a the vertices in Topological order. As there are multiple Topological 
+orders possible, you may return any of them.
 
 Expected Time Complexity: O(V + E).
 Expected Auxiliary Space: O(V).
@@ -91,6 +97,21 @@ int main() {
 }// } Driver Code Ends
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // The Graph structure is as folows
 
 /*  Function which sorts the graph vertices in topological form
@@ -98,27 +119,29 @@ int main() {
 *   adj[]: input graph
 */
 
-stack<int> s;
+stack <int> s;
 
 void dfs(vector<int> adj[],int node, vector<bool> &vis){
-    vis[node]=true;
-    for(auto x: adj[node]){
+    vis[node] = true;
+    for (auto x: adj[node]){
         if(!vis[x])
             dfs(adj, x, vis);
     }
     s.push(node);
 }
 
-vector<int> topoSort(int V, vector<int> adj[]) {
-    vector<bool> vis(V, false);
-    for(int i=0;i<V;i++){
-        if(!vis[i])
+vector <int> topoSort(int V, vector<int> adj[]) {
+    vector <bool> vis(V, false);
+    for (int i = 0; i < V; i++){
+        if (!vis[i])
          dfs(adj, i, vis);
     }
-    vector<int>res;
-    while(!s.empty()){
+    vector <int> res;
+    
+    while (!s.empty()){
         res.push_back(s.top());
         s.pop();
     }
+    
     return res;
 }

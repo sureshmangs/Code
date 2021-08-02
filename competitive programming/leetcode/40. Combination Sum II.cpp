@@ -33,6 +33,54 @@ A solution set is:
 
 
 
+
+
+
+// TC: 2^n
+// SC: O(1)
+
+class Solution {
+public:
+    
+    void combSum(vector<int> &candidates, int target, int cur, vector<int> &comb, vector<vector<int>> &res){
+        if (target == 0){
+            res.push_back(comb);
+            return;
+        }
+        if (target < 0) return;
+        
+        for (int i = cur; i < candidates.size(); i++){
+            if (i > 0 && candidates[i] == candidates[i - 1] && i > cur) continue; // check for duplicates
+            comb.push_back(candidates[i]);
+            combSum(candidates, target - candidates[i], i + 1, comb, res);  // i + 1 because we can consider one element only once
+            comb.erase(comb.end() - 1); // backtrack
+        }
+    }
+    
+    vector <vector<int>> combinationSum2(vector <int> &candidates, int target) {
+        vector <vector<int> > res;
+        vector <int> comb;
+        
+        sort(candidates.begin(), candidates.end());
+        
+        combSum(candidates, target, 0, comb, res);
+        
+        return res;
+    }
+};
+
+
+
+
+
+
+
+
+
+// TC: 2^n
+// SC: O(n)
+
+
 class Solution {
 public:
 
