@@ -23,6 +23,50 @@ Output:
 
 
 
+
+
+// Backtracking
+// TC: n * 2^n
+
+class Solution {
+public:
+    
+    void solve(int start, int size, vector <int> &nums, vector<int> &cur, vector<vector<int>> &res) {
+        if (cur.size() == size) {
+            res.push_back(cur);
+            return;
+        }
+        
+        for (int i = start; i < nums.size(); i++) {
+            cur.push_back(nums[i]);
+            solve(i + 1, size, nums, cur, res);
+            cur.pop_back();  // backtrack
+        }
+    }
+    
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> res;
+        vector <int> cur;
+        
+        int n = nums.size();
+        
+        for (int k = 0; k <= n; k++) {
+            solve(0, k, nums, cur, res);
+        }
+        
+        return res;
+    }
+};
+
+
+
+
+
+
+
+
+// Backtracking
+
 class Solution {
 public:
 
@@ -44,3 +88,10 @@ public:
         return res;
     }
 };
+
+
+
+
+
+
+// also can be done using bitmasking

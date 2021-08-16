@@ -1,11 +1,17 @@
 /*
-Given a string, a partitioning of the string is a palindrome partitioning if every sub-string of the partition is a palindrome. For example, “aba|b|bbabb|a|b|aba” is a palindrome partitioning of “ababbbabbababa”. Determine the fewest cuts needed for palindrome partitioning of a given string. For example, minimum 3 cuts are needed for “ababbbabbababa”. The three cuts are “a|babbbab|b|ababa”.
+Given a string, a partitioning of the string is a palindrome partitioning if every
+ sub-string of the partition is a palindrome. For example, “aba|b|bbabb|a|b|aba” 
+ is a palindrome partitioning of “ababbbabbababa”. Determine the fewest cuts 
+ needed for palindrome partitioning of a given string. For example, minimum 3 
+ cuts are needed for “ababbbabbababa”. The three cuts are “a|babbbab|b|ababa”.
 
 Input:
-The first line of input contains an integer T, denoting the number of test cases. Then T test cases follow. The first line of every Test Case consists of S, denoting a String.
+The first line of input contains an integer T, denoting the number of test cases. 
+Then T test cases follow. The first line of every Test Case consists of S, denoting a String.
 
 Output:
-For each test case in a new line print an integer, denoting the number cuts in the String to make it palindromic.
+For each test case in a new line print an integer, 
+denoting the number cuts in the String to make it palindromic.
 
 Constraints:
 1<=T<=100
@@ -21,6 +27,58 @@ Output:
 3
 1
 */
+
+
+
+
+
+
+
+// Accepted on LC
+
+class Solution {
+public:
+    vector<vector<int>> dp;
+    
+    bool isPalindrome(int start, int end, string &s) {
+        while (start < end) {
+            if (s[start++] != s[end--]) return false;
+        }
+        return true;
+    }
+    
+
+    int solve (int i, int j, string &s){    
+        if(i>=j || isPalindrome(i, j, s)) return 0;
+        
+        if(dp[i][j]!=-1) return dp[i][j];
+        
+        int res = INT_MAX;
+        
+        for (int k = i; k < j; k++){
+            if (isPalindrome(i, k, s)){                         
+                int tmp = solve (k + 1, j, s) + 1;
+                res = min (res, tmp);
+            }
+        }
+        
+        return dp[i][j] = res;
+    }
+    
+    int minCut(string s) {
+        int n = s.length();
+        
+        dp.resize(n, vector<int> (n, -1));
+            
+        return solve (0, n - 1, s);
+    }
+};
+
+
+
+
+
+
 
 
 

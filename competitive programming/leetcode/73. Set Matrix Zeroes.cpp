@@ -44,35 +44,37 @@ Could you devise a constant space solution?
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
-        int m=matrix.size();
-        int n=matrix[0].size();
-        bool fr=false, fc=false;  // check if first row or column contains a zero
-
-        for(int i=0;i<m;i++) // col 0
-            if(matrix[i][0]==0) fc=true;
-
-        for(int j=0;j<n;j++)  // row 0
-            if(matrix[0][j]==0) fr=true;
-
-        for(int i=1;i<m;i++){
-            for(int j=1;j<n;j++){
-                if(matrix[i][j]==0){
-                    matrix[0][j]=0;
-                    matrix[i][0]=0;
+        int m = matrix.size();
+        int n = matrix[0].size();
+        bool fr = false, fc = false;  // check if first row or column contains a zero
+        
+        for (int i = 0; i < m; i++) // col 0
+            if (matrix[i][0] == 0) fc = true;
+        
+        for(int j = 0; j < n; j++)  // row 0
+            if (matrix[0][j] == 0) fr = true;
+        
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (matrix[i][j] == 0){
+                    matrix[0][j] = 0;
+                    matrix[i][0] = 0;
                 }
             }
         }
-
-        for(int i=1;i<m;i++){
-            for(int j=1;j<n;j++){
-                if(matrix[0][j]==0 || matrix[i][0]==0) matrix[i][j]=0;
+        
+        for (int i = 1;i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (matrix[0][j] == 0 || matrix[i][0] == 0) matrix[i][j] = 0;
             }
         }
-        if(fr){
-            for(int j=0;j<n;j++) matrix[0][j]=0;
+        
+        if (fr){
+            for (int j = 0; j < n; j++) matrix[0][j] = 0;
         }
-        if(fc){
-            for(int i=0;i<m;i++) matrix[i][0]=0;
+        
+        if (fc){
+            for (int i = 0; i < m; i++) matrix[i][0] = 0;
         }
     }
 };
