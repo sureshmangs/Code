@@ -1,3 +1,3 @@
 ## LeetCode problem solutions
 
-Link to profile: [LeetCode](https://leetcode.com/sureshmangs1/)
+LeetCode: [LeetCode](https://leetcode.com)

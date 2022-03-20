@@ -1,2 +1,2 @@
 ## Codeforces problem solutions
-Link to profile: [Codeforces](http://codeforces.com/profile/sureshmangs)
+Codeforces: [Codeforces](http://codeforces.com)

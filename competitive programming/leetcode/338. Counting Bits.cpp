@@ -1,4 +1,5 @@
-Given a non negative integer number num. For every numbers i in the range 0 ≤ i ≤ num calculate the number of 1's in their binary representation and return them as an array.
+﻿Given a non negative integer number num. For every numbers i in the range 0 ≤ i ≤ num calculate the 
+number of 1's in their binary representation and return them as an array.
 
 Example 1:
 
@@ -89,3 +90,21 @@ For number 11, it equals to number 10 + 1.
 
 source: http://buttercola.blogspot.com/2016/06/leetcode-338-counting-bits.html
 */
+
+
+
+/* another approach */
+
+class Solution {
+public:
+    vector<int> countBits(int n) {
+        vector <int> res(n + 1, 0);
+        
+        for (int i = 1; i <= n; i++) {
+            if (i % 2) res[i] = res[i / 2] + 1;
+            else res[i] = res[i / 2];
+        }
+        
+        return res;
+    }
+};
