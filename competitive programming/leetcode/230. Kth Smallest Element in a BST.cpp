@@ -68,6 +68,50 @@ public:
 
 
 
+
+
+
+
+
+
+
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int cnt = 0, res = -1;
+    
+    void inorder(TreeNode *root) {
+        if (!root) return;
+        inorder(root->left);
+        if (--cnt == 0) {
+            res = root->val;
+            return;
+        }
+        inorder(root->right);
+    }
+    
+    int kthSmallest(TreeNode* root, int k) {
+        cnt = k;
+        inorder(root);
+        return res;
+    }
+};
+
+
+
+
+
 // Approach 1: Recursive Inorder Traversal
 // Build an inorder traversal of BST which is an array sorted in the ascending order
 // Now the answer is the k - 1th element of this array

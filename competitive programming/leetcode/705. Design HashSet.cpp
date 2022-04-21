@@ -61,3 +61,50 @@ public:
  * obj->remove(key);
  * bool param_3 = obj->contains(key);
  */
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+#define MAX 1000001
+
+class MyHashSet {
+public:
+    vector <bool> hashMap;
+    
+    MyHashSet() {
+        hashMap.resize(MAX, false);
+    }
+    
+    void add(int key) {
+        hashMap[key] = true;
+    }
+    
+    void remove(int key) {
+        hashMap[key] = false;
+    }
+    
+    bool contains(int key) {
+        return hashMap[key];
+    }
+};
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet* obj = new MyHashSet();
+ * obj->add(key);
+ * obj->remove(key);
+ * bool param_3 = obj->contains(key);
+ */
