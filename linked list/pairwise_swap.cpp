@@ -1,35 +1,19 @@
-/*
-Given a singly linked list of size N. The task is to swap elements in the linked list pairwise.
-For example, if the input list is 1 2 3 4, the resulting list after swaps will be 2 1 4 3.
+Given a singly linked list node, swap each pair of nodes and return the new head.
 
-Input:
-The first line of input contains the number of test cases T. For each test case, the first line of input contains the length of the linked list and the next line contains linked list data.
+Constraints
+n = 100,000 where n is the number of nodes in node
 
-Output:
-Output the linked list after swapping pairwise nodes.
+Example 1
+Input
+node = [0, 1, 3, 4]
+Output
+[1, 0, 4, 3]
 
-User Task:
-The task is to complete the function pairWiseSwap() which takes the head node as the only argument and returns the modified head.
-
-Expected Time Complexity: O(N).
-Expected Auxiliary Space: O(1).
-
-Constraints:
-1 <= T <= 100
-1 <= N <= 103
-
-Example:
-Input:
-1
-8
-1 2 2 4 5 6 7 8
-
-Output:
-2 1 4 2 6 5 8 7
-
-Explanation:
-Testcase 1: After swapping each pair considering (1,2), (2, 4), (5, 6).. so on as pairs, we get 2, 1, 4, 2, 6, 5, 8, 7 as a new linked list.
-*/
+Example 2
+Input
+node = [1, 2, 3]
+Output
+[2, 1, 3]
 
 
 
@@ -37,64 +21,57 @@ Testcase 1: After swapping each pair considering (1,2), (2, 4), (5, 6).. so on a
 
 
 
-#include<bits/stdc++.h>
-using namespace std;
 
-struct node{
-    int data;
-    struct node* next;
-};
 
-struct node* createList(struct node* head, int data){
-    struct node *tmp=(struct node*)malloc(sizeof(struct node));
-    tmp->data=data;
-    tmp->next=NULL;
-    if(head==NULL){
-        head=tmp;
-        return head;
+
+
+
+
+
+
+/**
+ * class LLNode {
+ *     public:
+ *         int val;
+ *         LLNode *next;
+ * };
+ */
+
+// Swapping values instead of actual nodes
+LLNode* solve(LLNode* head) {
+    if (!head || !head->next) return head;
+    LLNode *curr = head;
+    while (curr && curr->next) {
+        swap(curr->val, curr->next->val);
+        curr = curr->next->next;
     }
-    struct node* p=head;
-    while(p->next!=NULL){
-        p=p->next;
-    }
-    p->next=tmp;
     return head;
 }
 
-void disp(struct node* head){
-    struct node* p=head;
-    while(p!=NULL){
-        cout<<p->data<<" ";
-        p=p->next;
-    }
-}
 
-void pairWiseSwap(struct node* head) {
-    if(head==NULL) return ;
-    struct node *p1=head, *p2=head->next;
-    while(p2!=NULL){
-        int tmp=p2->data;
-        p2->data=p1->data;
-        p1->data=tmp;
 
-        if(p2->next!=NULL && p2->next->next!=NULL){
-            p1=p2->next;
-            p2=p1->next;
-        } else break;
-    }
-}
 
-int main(){
-    struct node* head=NULL;
-    int n;
-    cin>>n;
-    for(int i=0;i<n;i++){
-        int data;
-        cin>>data;
-        head=createList(head, data);
+
+
+
+/**
+ * class LLNode {
+ *     public:
+ *         int val;
+ *         LLNode *next;
+ * };
+ */
+ 
+// Swapping actual nodes
+LLNode* solve(LLNode* head) {
+    if (!head || !head->next) return head;
+    LLNode *curr = head, *tmp = NULL;
+
+    if (curr && curr->next) {
+        tmp = curr->next;
+        curr->next = curr->next->next;
+        tmp->next = curr;
+        curr->next = solve(curr->next);
     }
-    disp(head);
-    cout<<endl;
-    pairWiseSwap(head);
-    disp(head);
+    return tmp;
 }

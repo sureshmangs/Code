@@ -1,5 +1,8 @@
 /*
-Given a binary tree, print it vertically. The following example illustrates vertical order traversal.
+Given a binary tree, print it vertically. 
+The following example illustrates vertical order traversal.
+
+
            1
         /    \
        2      3
@@ -27,7 +30,8 @@ and a left edge is considered as -1 horizontal distance.
 
 
 For every HD value, we maintain a list of nodes in a hash map.
-Whenever we see a node in traversal, we go to the hash map entry and add the node to the hash map using HD as a key in a map.
+Whenever we see a node in traversal, we go to the hash map entry and add t
+he node to the hash map using HD as a key in a map.
 */
 
 

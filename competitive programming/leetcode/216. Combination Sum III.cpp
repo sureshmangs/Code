@@ -21,25 +21,29 @@ Output: [[1,2,6], [1,3,5], [2,3,4]]
 
 class Solution {
 public:
-
-    void combSum3(int k, int n, int next, vector<int> &comb, vector<vector<int> > &res){
-        if(comb.size()==k && n==0){
+    vector<vector<int>> res;
+    
+    void combSumUtil(int start, int k, int sum, vector <int> &comb) {
+        if (comb.size() == k && sum == 0) {
             res.push_back(comb);
             return;
-        } else if(comb.size()>=k || n<=0) return;
-
-        for(int i=next;i<10;i++){
+        }
+        if (comb.size() >= k || sum <= 0) return;
+        
+        for (int i = start; i <= 9; i++) {
             comb.push_back(i);
-            combSum3(k, n-i, i+1, comb, res);
-            comb.erase(comb.end()-1);
+            combSumUtil(i + 1, k, sum - i, comb);
+            comb.erase(comb.end() - 1); // backtrack
         }
     }
-
+    
     vector<vector<int>> combinationSum3(int k, int n) {
-        vector<vector<int> >res;
-        vector<int> comb;
-        combSum3(k, n, 1,comb, res);
-
+        vector <int> comb;
+        combSumUtil(1, k, n, comb);
         return res;
     }
 };
+
+
+// TC -> O(C(9,k)) -> O(9^k)
+// SC -> ???

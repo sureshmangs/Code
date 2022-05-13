@@ -1,4 +1,5 @@
-Given an array A of non-negative integers, return an array consisting of all the even elements of A, followed by all the odd elements of A.
+Given an array A of non-negative integers, return an array consisting of 
+all the even elements of A, followed by all the odd elements of A.
 
 You may return any answer array that satisfies this condition.
 
@@ -25,16 +26,19 @@ Note:
 // Without extra space
 class Solution {
 public:
-    vector<int> sortArrayByParity(vector<int>& A) {
-        int n=A.size();
-        int j=0;
-        for(int i=0;i<n;i++){
-            if(A[i]%2==0){
-                swap(A[i], A[j]);
-                j++;
-            }
+    vector<int> sortArrayByParity(vector<int>& nums) {
+        int even = 0, odd = nums.size() - 1;
+        
+        while (even < odd) {
+            if (nums[even] % 2) {
+                if(nums[odd] % 2 == 0) {
+                    swap(nums[even], nums[odd]);
+                }
+                odd--;
+            } else even++;
         }
-        return A;
+        
+        return nums;
     }
 };
 

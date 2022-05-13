@@ -1,4 +1,3 @@
-
 Given an undirected graph, return true if and only if it is bipartite.
 
 Recall that a graph is bipartite if we can split it's set of nodes into two independent subsets A and B
@@ -45,6 +44,8 @@ The graph is undirected: if any element j is in graph[i], then i will be in grap
 // Finding bipartite using graph coloring concept
 
 // BFS
+// TC -> O(V + E)
+// SC -> O(V)
 
 class Solution {
 public:
@@ -103,14 +104,9 @@ public:
 
 
 
-
-
-
-
-
-
-
 // DFS
+// TC -> O(V + E)
+// SC -> O(V)
 
 class Solution {
 public:
