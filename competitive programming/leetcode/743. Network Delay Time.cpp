@@ -32,47 +32,55 @@ All edges times[i] = (u, v, w) will have 1 <= u, v <= N and 0 <= w <= 100.
 
 
 
-#define INF INT_MAX
-typedef pair<int, int> iPair;
 
+
+
+
+
+
+
+#define INF INT_MAX
+typedef pair <int, int> iPair;
 class Solution {
 public:
-
-    int dijkstras(vector<pair<int, int> > adj[], int N, int K){
-        priority_queue<iPair, vector<iPair>, greater<iPair> > q;  // distance, vertex  // min heap
-        vector<int> dist(N+1, INF);
-
-        int src=K;
-        dist[K]=0;   // starting from here
-        q.push({dist[K], src});
-
-        while(!q.empty()){
-            int u=q.top().second;
+    
+    int dijkstras(int src, vector <pair<int, int>> graph[], int n) {
+        priority_queue <iPair, vector <iPair>, greater<iPair>> q;
+        vector <int> dist(n + 1, INF);
+        
+        dist[src] = 0;
+        q.push({dist[src], src});
+        
+        
+        while (!q.empty()) {
+            int u = q.top().second;
             q.pop();
-            for(auto x: adj[u]){
-                int v=x.first;
-                int w=x.second;
-                if(dist[v]>dist[u]+w){
-                    dist[v]=dist[u]+w;
+     
+            for (auto x: graph[u]) {
+                int v = x.first;
+                int w = x.second;
+                
+                if (dist[v] > dist[u] + w) {
+                    dist[v] = dist[u] + w;
                     q.push({dist[v], v});
                 }
             }
         }
-
-        int maxi=dist[1];
-        for(int i=1;i<N+1;i++){
-            if(dist[i]>maxi) maxi=dist[i];
-        }
-
-        return maxi==INF ? -1: maxi;
+        
+        int res = INT_MIN;
+        for (int i = 1; i <= n; i++) res = max(res, dist[i]);
+        
+        return res == INT_MAX ? -1: res;
     }
-
-    int networkDelayTime(vector<vector<int>>& times, int N, int K) {
-        int n=times.size();
-        vector<pair<int, int> > adj[N+1];  // u: <v, w>  // N+1 as vertex starts from 1
-        for(int i=0;i<n;i++)
-            adj[times[i][0]].push_back({times[i][1], times[i][2]});
-
-        return dijkstras(adj, N, K);
+    
+    int networkDelayTime(vector<vector<int>>& times, int n, int k) {
+        vector <pair<int, int>> graph[n + 1];
+        
+        for (auto &time: times) graph[time[0]].push_back({time[1], time[2]});
+        
+        return dijkstras(k, graph, n);
     }
 };
+
+// TC -> O(N+ElogN)
+// SC -> O(N+E)

@@ -1,36 +1,25 @@
-/*
-Given a singly linked list of size N of integers. The task is to check if the given linked list is palindrome or not.
-Expected Time Complexity: O(N)
-Expected Auxialliary Space Usage: O(1)  (ie, you should not use the recursive stack space as well)
+Given a singly linked list head whose values are integers, 
+determine whether the linked list forms a palindrome.
 
-Input:
-First line of input contains number of testcases T. For each testcase, first line of input contains length of linked list N and next line contains N integers as data of linked list.
+Constraints
 
-Output:
-For each test case output will be 1 if the linked list is a palindrome else 0.
+n = 100,000 where n is the length of node
 
-User Task:
-The task is to complete the function isPalindrome() which takes head as reference as the only parameter and returns true or false if linked list is palindrome or not respectively.
+Example 1:
+Input
+node = [5, 3, 5]
+Output
+true
+Explanation
+5 -> 3 -> 5 is a palindrome.
 
-Constraints:
-1 <= T <= 103
-1 <= N <= 50
-
-Example:
-Input:
-2
-3
-1 2 1
-4
-1 2 3 4
-Output:
-1
-0
-
-Explanation:
-Testcase 1: The given linked list is 1 2 1 , which is a pallindrome and Hence, the output is 1.
-Testcase 2: The given linked list is 1 2 3 4 , which is not a pallindrome and Hence, the output is 0.
-*/
+Example 2:
+Input
+node = [12, 8, 12]
+Output
+true
+Explanation
+The values of the linked list are the same forwards and backwards.
 
 
 
@@ -41,86 +30,50 @@ Testcase 2: The given linked list is 1 2 3 4 , which is not a pallindrome and He
 
 
 
-#include<bits/stdc++.h>
-using namespace std;
 
-struct node{
-    int data;
-    struct node* next;
-};
+/**
+ * class LLNode {
+ *     public:
+ *         int val;
+ *         LLNode *next;
+ * };
+ */
 
-struct node* createList(struct node* head, int data){
-    struct node *tmp=(struct node*)malloc(sizeof(struct node));
-    tmp->data=data;
-    tmp->next=NULL;
-    if(head==NULL){
-        head=tmp;
-        return head;
-    }
-    struct node* p=head;
-    while(p->next!=NULL){
-        p=p->next;
-    }
-    p->next=tmp;
-    return head;
-}
-
-void disp(struct node* head){
-    struct node* p=head;
-    while(p!=NULL){
-        cout<<p->data<<" ";
-        p=p->next;
-    }
-}
-
-struct node* findMid(struct node* head){
-    struct node *slow=head, *fast=head;
-    while(fast!=NULL && fast->next!=NULL){
-        slow=slow->next;
-        fast=fast->next->next;
+LLNode* getMiddle(LLNode *head) {
+    LLNode *slow = head, *fast = head;
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
     }
     return slow;
-};
+}
 
-struct node* reversal(struct node* head){
-    if(head==NULL) return head;
-    struct node *cur=head, *prev=head, *ahead=head->next;
-    prev->next=NULL;
-    cur=ahead;
-    while(ahead!=NULL){
-        ahead=ahead->next;
-        cur->next=prev;
-        prev=cur;
-        cur=ahead;
+LLNode* reverseLinkedList(LLNode *head) {
+    if (!head) return head;
+    LLNode *prev = head, *curr = head, *ahead = head->next;
+    prev->next = NULL;
+    curr = ahead;
+    while (ahead) {
+        ahead = ahead->next;
+        curr->next = prev;
+        prev = curr;
+        curr = ahead;
     }
-    head=prev;
+    head = prev;
     return head;
 }
 
-bool palindromeCheck(struct node *head){
-        struct node *mid=findMid(head);
-        struct node*last=reversal(mid);
+bool solve(LLNode* head) {
+    if (!head) return true;
+    LLNode *mid = getMiddle(head);
+    LLNode *last = reverseLinkedList(mid);
+    
 
-        while(head!=mid){
-            if(head->data!=last->data) return false;
-                head=head->next;
-                last=last->next;
-        }
-        return true;
-}
+    while (head && last) {
+        if (head->val != last->val) return false;
+        head = head->next;
+        last = last->next;
+    }
 
-int main(){
-    struct node* head=NULL;
-    int n;
-    cin>>n;
-    for(int i=0;i<n;i++){
-        int data;
-        cin>>data;
-        head=createList(head, data);
-    }
-    if(palindromeCheck(head)){
-        cout<<"\nLinked List is Palindrome\n";
-    } else {
-        cout<<"\nLinked List is not Palindrome\n";
-    }
+    return true;
 }
