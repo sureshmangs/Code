@@ -36,8 +36,7 @@ A solution set is:
 
 
 
-// TC: 2^n
-// SC: O(1)
+
 
 class Solution {
 public:
@@ -77,9 +76,8 @@ public:
 
 
 
-// TC: 2^n
-// SC: O(n)
 
+// Using a set to avoid duplicates
 
 class Solution {
 public:
@@ -105,6 +103,45 @@ public:
 
         for(auto &x: resSet) res.push_back(x);
 
+        return res;
+    }
+};
+
+
+
+
+
+
+
+
+class Solution {
+public:
+    vector <vector<int>> res;
+    void combSum(int i, vector <int> &candidates, vector <int> &comb, int target, vector <bool> &used) {
+        if (i >= candidates.size()) {
+            if (target == 0) res.push_back(comb);
+            return;
+        }
+
+        if (target < 0) return;
+
+        combSum(i + 1, candidates, comb, target, used);     // not considering i'th element
+
+        if (i == 0 || candidates[i] != candidates[i-1] || used[i-1]) {
+            comb.push_back(candidates[i]);                              
+            used[i] = true;
+            combSum(i + 1, candidates, comb, target - candidates[i], used); // considering i'th element
+            used[i] = false;
+            comb.erase(comb.end() - 1);
+        }
+    }
+
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        vector <int> comb;
+        vector <bool> used(candidates.size(), false); // to check if previous element has been used
+
+        sort(candidates.begin(), candidates.end());
+        combSum(0, candidates, comb, target, used);
         return res;
     }
 };

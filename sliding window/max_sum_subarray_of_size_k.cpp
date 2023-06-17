@@ -1,84 +1,51 @@
-/*
-Given an array of integers Arr of size N and a number K.
- Return the maximum sum of a subarray of size K.
-
- 
+Given an array of integers nums of size n and a number k.
+Return the maximum sum of a subarray of size k.
 
 Example 1:
-
-Input:
-N = 4, K = 2
-Arr = [100, 200, 300, 400]
-Output:
-700
-Explanation:
-Arr3  + Arr4 =700,
-which is maximum.
- 
+Input:  [4 3 9 5 1 2], k = 3
+Output: 17
+Explanation: The subarray of size 3 with maximum sum 17 is [3 9 5].
 
 Example 2:
-
-Input:
-N = 4, K = 4
-Arr = [100, 200, 300, 400]
-Output:
-1000
-Explanation:
-Arr1 + Arr2 + Arr3  
-+ Arr4 =1000,
-which is maximum.
-
- 
-
-Expected Time Complexity: O(N)
-Expected Auxiliary Space: O(1)
- 
-
+Input:  [1 2 3], k = 2
+Output: 5
+Explanation: The subarray of size 2 with maximum sum is [2 3].
 
 Constraints:
-1<=N<=105
-1<=K<=N
-*/
+1<=n<=10^5
+1<=k<=n
+********************************************************************************
+ 
 
-class Solution{   
+
+
+
+
+
+
+
+
+# Approach 1:
+
+class Solution {
 public:
-    int maximumSumSubarray(int k, vector<int> &arr , int n){
-        int start = 0, end = 0;
-        long long sum = 0, res = INT_MIN;
-        
-        while (end < n) {
-            sum += arr[end];
-            
-            if (end - start + 1 < k) end++;
-            else if (end - start + 1 == k) {
+    int maximumSumSubarray(vector<int>& nums, int k) {
+    	int sum = 0, res = INT_MIN;
+        int start = 0, end = 0; // start and end of the sliding window
+
+        while (end < nums.size()) {
+            sum += nums[end];
+            if (end - start + 1 == k) { // windows complete
                 res = max(res, sum);
-                sum -= arr[start];
-                start++;
-                end++;
+                sum -= nums[start];
+                start++;    // slide the window
             }
+            end++;  // increment window size
         }
-        
+
         return res;
     }
 };
 
-// { Driver Code Starts.
-int main() 
-{ 
-    int t;
-    cin>>t;
-    while(t--)
-    {
-        int N,K;
-        cin >> N >> K;;
-        vector<int>Arr;
-        for(int i=0;i<N;++i){
-            int x;
-            cin>>x;
-            Arr.push_back(x);
-        }
-        Solution ob;
-        cout << ob.maximumSumSubarray(K,Arr,N) << endl;
-    }
-    return 0; 
-}   // } Driver Code Ends
+TC -> O(n), n is the size of nums
+SC -> O(1)

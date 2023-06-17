@@ -1,25 +1,17 @@
-Given a singly linked list head whose values are integers, 
-determine whether the linked list forms a palindrome.
-
-Constraints
-
-n = 100,000 where n is the length of node
+Given the head of a singly linked list, return true if it is a palindrome or false otherwise.
 
 Example 1:
-Input
-node = [5, 3, 5]
-Output
-true
-Explanation
-5 -> 3 -> 5 is a palindrome.
+Input: head = [1,2,2,1]
+Output: true
 
 Example 2:
-Input
-node = [12, 8, 12]
-Output
-true
-Explanation
-The values of the linked list are the same forwards and backwards.
+Input: head = [1,2]
+Output: false
+
+Constraints:
+The number of nodes in the list is in the range [1, 105].
+0 <= Node.val <= 9
+********************************************************************************
 
 
 
@@ -30,50 +22,61 @@ The values of the linked list are the same forwards and backwards.
 
 
 
+# Approach 1: Iterative
 
 /**
- * class LLNode {
- *     public:
- *         int val;
- *         LLNode *next;
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+            if (!head) return NULL;
+            ListNode *slow = head, *fast = head;
 
-LLNode* getMiddle(LLNode *head) {
-    LLNode *slow = head, *fast = head;
-    while (fast && fast->next) {
-        slow = slow->next;
-        fast = fast->next->next;
-    }
-    return slow;
-}
+            while (fast && fast->next) {
+                slow = slow->next;
+                fast = fast->next->next;
+            }
+            return slow;
+        }
 
-LLNode* reverseLinkedList(LLNode *head) {
-    if (!head) return head;
-    LLNode *prev = head, *curr = head, *ahead = head->next;
-    prev->next = NULL;
-    curr = ahead;
-    while (ahead) {
-        ahead = ahead->next;
-        curr->next = prev;
-        prev = curr;
+    ListNode* reverseList(ListNode* head) {
+        if (!head) return head;
+        ListNode *prev = head, *curr = head, *ahead = head->next;
+        prev->next = NULL;
         curr = ahead;
-    }
-    head = prev;
-    return head;
-}
-
-bool solve(LLNode* head) {
-    if (!head) return true;
-    LLNode *mid = getMiddle(head);
-    LLNode *last = reverseLinkedList(mid);
-    
-
-    while (head && last) {
-        if (head->val != last->val) return false;
-        head = head->next;
-        last = last->next;
+        while (ahead) {
+            ahead = ahead->next;
+            curr->next = prev;
+            prev = curr;
+            curr = ahead;
+        }
+        head = prev;
+        return head;
     }
 
-    return true;
-}
+    bool isPalindrome(ListNode* head) {
+        if (!head) return true;
+
+        ListNode *mid = middleNode(head);
+        ListNode *last = reverseList(mid);
+
+        while (head && last) {
+            if (head->val != last->val) return false;
+            head = head->next;
+            last = last->next;
+        }
+
+        return true;
+    }
+};
+
+TC -> O(n), n is the length of the linked list
+SC -> O(1)

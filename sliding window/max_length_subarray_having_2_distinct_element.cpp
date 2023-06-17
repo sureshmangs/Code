@@ -1,65 +1,76 @@
-/*
-In a row of trees, the i-th tree produces fruit with type tree[i].
+You are visiting a farm that has a single row of fruit trees arranged from left to right.
+The trees are represented by an integer array fruits where fruits[i] is the type of fruit the ith tree produces.
 
-You start at any tree of your choice, then repeatedly perform the following steps:
+You want to collect as much fruit as possible.
+However, the owner has some strict rules that you must follow:
 
-Add one piece of fruit from this tree to your baskets.  If you cannot, stop.
-Move to the next tree to the right of the current tree.  If there is no tree to the right, stop.
-Note that you do not have any choice after the initial choice of starting tree: you must perform step 1, then step 2, then back to step 1, then step 2, and so on until you stop.
+You only have two baskets, and each basket can only hold a single type of fruit.
+There is no limit on the amount of fruit each basket can hold.
+Starting from any tree of your choice, you must pick exactly one fruit from every tree
+(including the start tree) while moving to the right.
 
-You have two baskets, and each basket can carry any quantity of fruit, but you want each basket to only carry one type of fruit each.
-
-What is the total amount of fruit you can collect with this procedure?
-
- 
+The picked fruits must fit in one of your baskets.
+Once you reach a tree with fruit that cannot fit in your baskets, you must stop.
+Given the integer array fruits, return the maximum number of fruits you can pick.
 
 Example 1:
-
-Input: [1,2,1]
+Input: fruits = [1,2,1]
 Output: 3
-Explanation: We can collect [1,2,1].
+Explanation: We can pick from all 3 trees.
+
 Example 2:
-
-Input: [0,1,2,2]
+Input: fruits = [0,1,2,2]
 Output: 3
-Explanation: We can collect [1,2,2].
-If we started at the first tree, we would only collect [0, 1].
+Explanation: We can pick from trees [1,2,2].
+If we had started at the first tree, we would only pick from trees [0,1].
+
 Example 3:
-
-Input: [1,2,3,2,2]
+Input: fruits = [1,2,3,2,2]
 Output: 4
-Explanation: We can collect [2,3,2,2].
-If we started at the first tree, we would only collect [1, 2].
-Example 4:
+Explanation: We can pick from trees [2,3,2,2].
+If we had started at the first tree, we would only pick from trees [1,2].
 
-Input: [3,3,3,1,2,1,1,2,3,3,4]
-Output: 5
-Explanation: We can collect [1,2,1,1,2].
-If we started at the first tree or the eighth tree, we would only collect 4 fruits.
-*/
+Constraints:
+1 <= fruits.length <= 10^5
+0 <= fruits[i] < fruits.length
+********************************************************************************
 
 
 
+
+
+
+
+
+
+
+# Approach 1: Sliding Window
 
 class Solution {
 public:
     int totalFruit(vector<int>& tree) {
-        int start = 0, end = 0, res = 0, n = tree.size(), k = 2;
-        unordered_map <int, int> m;
+        int res = 0;
+        int start = 0, end = 0; 	// start and end of the sliding window
+        int k = 2; 	// only two baskets available
+
+        unordered_map <int, int> freq;
         
-        while (end < n) {
-            m[tree[end]]++;
+        while (end < tree.size()) {
+            freq[tree[end]]++;
             
-            if (m.size() <= k) res = max(res, end - start + 1);
+            if (freq.size() <= k) res = max(res, end - start + 1);
             
-            else if (m.size() > k) {
-                m[tree[start]]--;
-                if (m[tree[start]] == 0) m.erase(tree[start]);
-                start++;
+            if (freq.size() > k) {
+                freq[tree[start]]--;
+                if (freq[tree[start]] == 0) freq.erase(tree[start]);
+                start++;	// slide the window
             }
-            end++;
+            end++;  // increment window size
         }
-        
+
         return res;
     }
 };
+
+TC -> O(n), n is the size of vector tree
+SC -> O(1)

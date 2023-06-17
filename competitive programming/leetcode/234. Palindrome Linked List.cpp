@@ -1,15 +1,17 @@
-Given a singly linked list, determine if it is a palindrome.
+Given the head of a singly linked list, return true if it is a palindrome or false otherwise.
 
 Example 1:
-
-Input: 1->2
-Output: false
-Example 2:
-
-Input: 1->2->2->1
+Input: head = [1,2,2,1]
 Output: true
-Follow up:
-Could you do it in O(n) time and O(1) space?
+
+Example 2:
+Input: head = [1,2]
+Output: false
+
+Constraints:
+The number of nodes in the list is in the range [1, 105].
+0 <= Node.val <= 9
+********************************************************************************
 
 
 
@@ -20,6 +22,7 @@ Could you do it in O(n) time and O(1) space?
 
 
 
+# Approach 1: Iterative
 
 /**
  * Definition for singly-linked list.
@@ -33,45 +36,47 @@ Could you do it in O(n) time and O(1) space?
  */
 class Solution {
 public:
+    ListNode* middleNode(ListNode* head) {
+            if (!head) return NULL;
+            ListNode *slow = head, *fast = head;
 
-
-    ListNode* getMiddle(ListNode* head){
-        ListNode *slow=head, *fast=head;
-        while(fast!=NULL && fast->next!=NULL){
-            slow=slow->next;
-            fast=fast->next->next;
+            while (fast && fast->next) {
+                slow = slow->next;
+                fast = fast->next->next;
+            }
+            return slow;
         }
-        return slow;
-    };
 
-    ListNode* reverseList(ListNode* head){
-    if(head==NULL) return head;
-    ListNode *cur=head, *prev=head, *ahead=head->next;
-    prev->next=NULL;
-    cur=ahead;
-    while(ahead!=NULL){
-        ahead=ahead->next;
-        cur->next=prev;
-        prev=cur;
-        cur=ahead;
+    ListNode* reverseList(ListNode* head) {
+        if (!head) return head;
+        ListNode *prev = head, *curr = head, *ahead = head->next;
+        prev->next = NULL;
+        curr = ahead;
+        while (ahead) {
+            ahead = ahead->next;
+            curr->next = prev;
+            prev = curr;
+            curr = ahead;
+        }
+        head = prev;
+        return head;
     }
-    head=prev;
-    return head;
-}
 
     bool isPalindrome(ListNode* head) {
-        if(!head) return true;
-        ListNode* mid=getMiddle(head);
-        ListNode* last=reverseList(mid);  // start of reverses list
+        if (!head) return true;
 
-        while(head!=mid){
-            if(head->val!=last->val) return false;
-                head=head->next;
-                last=last->next;
+        ListNode *mid = middleNode(head);
+        ListNode *last = reverseList(mid);
+
+        while (head && last) {
+            if (head->val != last->val) return false;
+            head = head->next;
+            last = last->next;
         }
-        return true;
 
+        return true;
     }
 };
 
-// After finding the result, we can again reverse the reversed list and join it back to the original list
+TC -> O(n), n is the length of the linked list
+SC -> O(1)

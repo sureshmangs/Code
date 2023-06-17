@@ -1,65 +1,150 @@
-Given a set of candidate numbers (candidates) (without duplicates) and a target number (target),
-find all unique combinations in candidates where the candidate numbers sums to target.
+Given an array of distinct integers candidates and a target integer target, 
+return a list of all unique combinations of candidates where the chosen 
+numbers sum to target. You may return the combinations in any order.
 
-The same repeated number may be chosen from candidates unlimited number of times.
+The same number may be chosen from candidates an unlimited number of times. 
+Two combinations are unique if the 
+frequency
+ of at least one of the chosen numbers is different.
 
-Note:
+The test cases are generated such that the number of unique combinations that 
+sum up to target is less than 150 combinations for the given input.
 
-All numbers (including target) will be positive integers.
-The solution set must not contain duplicate combinations.
+ 
+
 Example 1:
 
-Input: candidates = [2,3,6,7], target = 7,
-A solution set is:
-[
-  [7],
-  [2,2,3]
-]
+Input: candidates = [2,3,6,7], target = 7
+Output: [[2,2,3],[7]]
+Explanation:
+2 and 3 are candidates, and 2 + 2 + 3 = 7. Note that 2 can be used multiple times.
+7 is a candidate, and 7 = 7.
+These are the only two combinations.
 Example 2:
 
-Input: candidates = [2,3,5], target = 8,
-A solution set is:
-[
-  [2,2,2,2],
-  [2,3,3],
-  [3,5]
-]
+Input: candidates = [2,3,5], target = 8
+Output: [[2,2,2,2],[2,3,3],[3,5]]
+Example 3:
 
+Input: candidates = [2], target = 1
+Output: []
+ 
 
 Constraints:
 
 1 <= candidates.length <= 30
-1 <= candidates[i] <= 200
-Each element of candidate is unique.
-1 <= target <= 500
+2 <= candidates[i] <= 40
+All elements of candidates are distinct.
+1 <= target <= 40
 
 
 
 
 
-
-
+// Iteratively going through the list of candidates
 class Solution {
 public:
-
-    void combSum(vector<int>& candidates, int target, int next, vector<int> &comb, vector<vector<int> > &res){
-        if(target==0){
+    void combSum(vector<int>& candidates, int target, int next, vector<int>& comb, vector<vector<int> >& res)
+    {
+        if (target == 0) {
             res.push_back(comb);
             return;
-        } else if(target<0) return;
-        for(int i=next;i<candidates.size();i++){
+        }
+        else if (target < 0)
+            return;
+        for (int i = next; i < candidates.size(); i++) {
             comb.push_back(candidates[i]);
-            combSum(candidates, target-candidates[i], i, comb, res);
-            comb.erase(comb.end()-1); // backtrack
+            combSum(candidates, target - candidates[i], i, comb, res);
+            comb.erase(comb.end() - 1); // backtrack
         }
     }
 
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+    vector<vector<int> > combinationSum(vector<int>& candidates, int target)
+    {
         vector<vector<int> > res;
         vector<int> comb;
 
         combSum(candidates, target, 0, comb, res);
 
+        return res;
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+// Recursive
+
+class Solution {
+public:
+    vector <vector<int>> res;
+    
+    void combSum(int i, vector <int> &candidates, vector <int> comb, int target) {
+        if (i >= candidates.size()) {
+            if (target == 0) res.push_back(comb);
+            return;
+        }
+
+        if (target < 0) return;
+
+        combSum(i + 1, candidates, comb, target);               // not considering i'th element
+        comb.push_back(candidates[i]);
+        combSum(i, candidates, comb, target - candidates[i]);    // considering i'th element
+    }
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector <int> comb;
+        combSum(0, candidates, comb, target);
+        return res;
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Recursive + backtrack
+
+class Solution {
+public:
+    vector <vector<int>> res;
+    void combSum(int i, vector <int> &candidates, vector <int> &comb, int target) {
+        if (i >= candidates.size()) {
+            if (target == 0) res.push_back(comb);
+            return;
+        }
+
+        if (target < 0) return;
+
+        combSum(i + 1, candidates, comb, target);               // not considering i'th element
+        comb.push_back(candidates[i]);
+        combSum(i, candidates, comb, target - candidates[i]);	// considering i'th element
+        comb.erase(comb.end() - 1);                            	// backtrack
+    }
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector <int> comb;
+        combSum(0, candidates, comb, target);
         return res;
     }
 };
